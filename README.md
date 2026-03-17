@@ -2,7 +2,9 @@
 
 [![paper preview](./fig/Decomposition.png)](./fig/Decomposition.pdf)
 
-This is a PyTorch implementation of the paper: [VLANeXt: Recipes for Building Strong VLA Models](), MLOW is an interpretable Fourier-based decomposition method of mutiple effects, it is a temporal decompositon method rather than Fourier transform.  
+This is a PyTorch implementation of the paper: [] MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting.  MLOW is an interpretable Fourier-based decomposition method that disentangles multiple effects of certain time series data using learned low-rank components, providing an interpretable decomposition in the temporal domain rather than operating in the complex frequency domain.
+
+If you find this project helpful, please don't forget to give it a ⭐ Star. Thank you very much! 
 
 We'll keep updating this repository with new features and news. Please feel free to contact us if you have any questions or find any bugs. 
 
@@ -18,6 +20,11 @@ pip install -r requirements.txt
 pip install flash-attn --no-build-isolation
 conda install -c conda-forge ffmpeg
 ```
+
+
+A low-rank learning method for Frequency Magnitude, Hyperplane-NMF, is proposed.
+
+A mathematical mechanism allows flexible selection of initial frequency levels and the input horizon.
 
 ### Benchmark Installation
 
