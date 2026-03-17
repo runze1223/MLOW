@@ -1,7 +1,6 @@
 # MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting
 
-![alt text](https://github.com/runze1223/MLOW/blob/main/fig/Decomposition.pdf)
-
+![alt text](https://github.com/runze1223/MLOW/tree/main/fig/Decomposition.pdf)
 
 <p align="center">
 <img src="fig/Decompostion.pdf" alt="roadmap of vlanext" width="60%"/>
