@@ -1,6 +1,5 @@
 # MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting
 
-[![paper preview](./fig/Decomposition.png)](./fig/Decomposition.pdf)
 
 This is a PyTorch implementation of the paper: [] MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting.  MLOW is an interpretable Fourier-based decomposition method that disentangles multiple effects of certain time series data using learned low-rank components, providing an interpretable decomposition in the temporal domain rather than operating in the complex frequency domain.
 
@@ -8,64 +7,37 @@ If you find this project helpful, please don't forget to give it a ⭐ Star. Tha
 
 We'll keep updating this repository with new features and news. Please feel free to contact us if you have any questions or find any bugs. 
 
-## 🛠️ Environment Setup
+## 🧠 Inference
 
-### Basic Installation
-```bash
-# Basic setup 
-conda create -n VLANeXt python=3.10
-conda activate VLANeXt
-pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu124
-pip install -r requirements.txt
-pip install flash-attn --no-build-isolation
-conda install -c conda-forge ffmpeg
-```
+### Overview Pipeline
+A mathematical mechanism enables flexible selection of initial frequency levels and the input horizon. The inference pipeline allows users to choose the initial frequency level, input horizon, and low-rank components, which are represented as "frequency_level", "seq_len", and "rank" in the run.py file. The visualization of the pipeline is provided as follows:
+[![paper preview](./fig/Decomposition.png)](./fig/Decomposition.pdf)
 
+### Low Rank Algorithm
+A low-rank learning method for Frequency Magnitude, Hyperplane-NMF, is proposed. A regularization parameter is used, which is represented as "lamb" in the run.py file. For implementation details, please refer to the code in ./data_provider/data_loader.py. The training and inference pseudocode are as follows:
 
-A low-rank learning method for Frequency Magnitude, Hyperplane-NMF, is proposed.
-
-A mathematical mechanism allows flexible selection of initial frequency levels and the input horizon.
-
-### Benchmark Installation
-
-**LIBERO**
-```bash
-cd third_party
-git clone https://github.com/Lifelong-Robot-Learning/LIBERO.git
-cd LIBERO && pip install .
-```
-
-**LIBERO-plus** (Separate env needed)
-```bash
-cd third_party
-git clone https://github.com/sylvestf/LIBERO-plus.git
-cd LIBERO-plus && pip install .
-# Dependencies
-apt install libexpat1 libfontconfig1-dev libpython3-stdlib libmagickwand-dev
-pip install -r extra_requirements.txt
-conda env config vars set LIBERO_CONFIG_PATH=~/.libero_plus
-```
-We also need to download the asserts, see [LIBERO-plus](https://github.com/sylvestf/LIBERO-plus).
-
+[![paper preview](./fig/Decomposition.png)]
 
 ## 🚀 Training
-Droid dataset is for robotics pretraining (used in our real-world experiments), and libero dataset is for benchmark evaluation (used in our benchmark evaluation). The default training setting is for our final VLANeXt framework.
-<p align="center">
-<img src="imgs/framework.png" alt="framework of vlanext" width="80%"/>
-</p>
-
-### 🧪 Design Space Exploration
-We provide a tutorial-style guide to configuring the **12 design spaces** from our paper.
-
-👉 **Please refer to [DESIGN_SPACE.md](DESIGN_SPACE.md) for detailed configuration instructions.**
-
-### Droid Dataset
-For more details, please refer to the [Droid Dataset](https://droid-dataset.github.io).
-
-**Download**:
-```bash
-gsutil -m rsync -r gs://gresearch/robotics/droid/1.0.1 droid/1.0.1/ 
+### Environment
+You can install the enviornment by runing the following code
 ```
+pip install -r requirements.txt
+```
+## Dataset
+You can obtained the well pre-processed datasets from [Google Drive](https://drive.google.com/file/d/1vgpOmAygokoUt235piWKUjfwao6KwLv7/view?usp=drive_link) or [Baidu Drive](https://pan.baidu.com/s/1ycq7ufOD2eFOjDkjr0BfSg?pwd=bpry). Then place the downloaded data under the folder `./dataset`. 
+
+## Reproduce the Results 
+```
+sh ./scripts/long_term_forecast/ETTh1.sh
+sh ./scripts/short_term_forecast/PEMS.sh
+```
+
+
+
+
+
+
 
 **Run Training**:
 ```bash
