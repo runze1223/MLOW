@@ -1,9 +1,7 @@
-# VLANeXt: Recipes for Building Strong VLA Models
+# MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting
 
 [![arXiv](https://img.shields.io/badge/arXiv-2602.18532-b31b1b.svg)](https://arxiv.org/abs/2602.18532)
-[![Project Page](https://img.shields.io/badge/Project-Page-green)](https://dravenalg.github.io/VLANeXt)
-[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-yellow)](https://huggingface.co/DravenALG/VLANeXt)
-[![Awesome VLA & WAM](https://img.shields.io/badge/GitHub-AwesomeVLA&WAM-black)](https://github.com/DravenALG/awesome-vla-wam)
+
 
 <p align="center">
 <img src="imgs/roadmap.png" alt="roadmap of vlanext" width="60%"/>
