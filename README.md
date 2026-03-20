@@ -1,6 +1,6 @@
 # MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting
 
-[![arXiv](https://img.shields.io/badge/arXiv-2603.18432-b31b1b.svg)(https://arxiv.org/abs/2603.18432)
+[![arXiv](https://img.shields.io/badge/arXiv-2603.18432-b31b1b.svg)](https://arxiv.org/abs/2603.18432)
 
 This is a PyTorch implementation of the paper: [] MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting.  MLOW is an interpretable Fourier-based decomposition method that disentangles multiple effects of certain time series data using learned low-rank components, providing an interpretable decomposition in the temporal domain rather than operating in the complex frequency domain.
 
