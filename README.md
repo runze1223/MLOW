@@ -2,7 +2,7 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2603.18432-b31b1b.svg)](https://arxiv.org/abs/2603.18432)
 
-This is a PyTorch implementation of the paper: [] MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting.  MLOW is an interpretable Fourier-based decomposition method that disentangles multiple effects of certain time series data using learned low-rank components, providing an interpretable decomposition in the temporal domain rather than operating in the complex frequency domain.
+This is a PyTorch implementation of the paper: [MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting]().  MLOW is an interpretable Fourier-based decomposition method that disentangles multiple effects of certain time series data using learned low-rank components, providing an interpretable decomposition in the temporal domain rather than operating in the complex frequency domain.
 
 If you find this project helpful, please don't forget to give it a ⭐ Star. Thank you very much! 
 
@@ -48,16 +48,21 @@ sh ./scripts/short_term_forecast/PEMS.sh
 [![paper preview](./fig/Table2.png)]
 
 ## ❗ Common Issues
-If you run into issues, check [COMMON_ISSUES.md](COMMON_ISSUES.md) for known problems and solutions.
+If you run into any issues, please let us know. One common issue is memory usage. Our decomposition is precomputed in the dataloader, which is more efficient. However, if your GPU memory cannot handle it, you can use our pretrained low-rank components and move the decomposition proccess to the model initialization stage.
 
 ## 📚 Citation
 
-If you find VLANeXt useful for your research or applications, please cite our paper using the following BibTeX:
+If you find MLOW useful for your research or applications, please cite our paper using the following BibTeX:
 
 ```bibtex
-
+  @article{yang2026mlow,
+      title={MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting}, 
+      author={Runze Yang and Longbing Cao and Xiao-Ming Wu and Xin You and Kun Fang and Jianxun Li and Jie Yang},
+      journal={arXiv preprint arXiv:2603.18432},
+      year={2026},
   }
 ```
+If you have any questions or suggestions, feel free to contact:
 
-## 🗞️ License
-This project is licensed under 
+Runze Yang (runze.y@sjtu.edu.cn)
+
