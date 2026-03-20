@@ -17,7 +17,7 @@ A mathematical mechanism enables flexible selection of initial frequency levels 
 ### Low Rank Algorithm
 A low-rank learning method for Frequency Magnitude, Hyperplane-NMF, is proposed. A regularization parameter is used, which is represented as "lamb" in the run.py file. For implementation details, please refer to the code in ./data_provider/data_loader.py. The training and inference pseudocode are as follows:
 
-[![paper preview](./fig/Algorithm.png)]
+![paper preview](./fig/Algorithm.png)
 
 ## 🚀 Training
 ### Environment
@@ -39,13 +39,13 @@ sh ./scripts/short_term_forecast/PEMS.sh
 
 ## 📊 Evaluation
 ## The visualization of the learned low rank components.
-[![paper preview](./fig/visualization1.png)]
+![paper preview](./fig/visualization1.png)
 
 ## The visualization of the MLOW Decompostion.
-[![paper preview](./fig/visualization2.png)]
+![paper preview](./fig/visualization2.png)
 ## The Experiment Results.
-[![paper preview](./fig/Table1.png)]
-[![paper preview](./fig/Table2.png)]
+![paper preview](./fig/Table1.png)
+![paper preview](./fig/Table2.png)
 
 ## ❗ Common Issues
 If you run into any issues, please let us know. One common issue is memory usage. Our decomposition is precomputed in the dataloader, which is more efficient. However, if your GPU memory cannot handle it, you can use our pretrained low-rank components and move the decomposition proccess to the model initialization stage.
