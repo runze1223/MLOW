@@ -912,7 +912,8 @@ def hyperplane_nmf(X, H, lam=20 ,max_iter=1000):
 
         W = torch.einsum('bk,kp->bp', X, H.T)
 
-        loss = torch.sum(torch.abs( (X -  torch.einsum('bk,kp->bp', W , H)))) / torch.sum(torch.abs(X)) *100
+        # loss = torch.sum(torch.abs( (X -  torch.einsum('bk,kp->bp', W , H)))) / torch.sum(torch.abs(X)) *100
+        loss= torch.linalg.norm(X - torch.einsum('bk,kp->bp', W , H), 'fro')**2 / torch.linalg.norm(X, 'fro')**2
 
 
         if it % 20 == 0:
