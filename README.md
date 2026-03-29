@@ -8,6 +8,8 @@ If you find this project helpful, please don't forget to give it a ⭐ Star. Tha
 
 We'll keep updating this repository with new features and news. Please feel free to contact us if you have any questions or find any bugs. 
 
+### 📰 News: We have added two more models, NLinear and CycleNet, to allow you to experiment with.
+
 ## 🧠 Inference
 
 ### Overview Pipeline
