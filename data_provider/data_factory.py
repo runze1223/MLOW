@@ -92,7 +92,8 @@ def data_provider(args, flag):
             levels=args.frequency_level,
             rank=args.rank,
             lam=args.lamb,
-            optimze_H_from_scratch=args.optimze_H_from_scratch
+            optimze_H_from_scratch=args.optimze_H_from_scratch,
+            cycle=args.cycle
         )
         print(flag, len(data_set))
         data_loader = DataLoader(
