@@ -20,13 +20,12 @@ from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 import time
 
-
 warnings.filterwarnings('ignore')
 
 class Dataset_ETT_hour(Dataset):
     def __init__(self, root_path, flag='train', size=None,
                  features='S', data_path='ETTh1.csv',
-                 target='OT', scale=True, timeenc=0, freq='h',levels=168,rank=10,lam=20, optimze_H_from_scratch=True):
+                 target='OT', scale=True, timeenc=0, freq='h',levels=168,rank=10,lam=20, optimze_H_from_scratch=True, cycle=24):
         # size [seq_len, label_len, pred_len]
         # info
         if size == None:
@@ -72,6 +71,7 @@ class Dataset_ETT_hour(Dataset):
 
         self.cos=cos
         self.sin=sin
+        self.cycle = cycle
 
 
         self.root_path = root_path
@@ -117,6 +117,8 @@ class Dataset_ETT_hour(Dataset):
 
         data_x = data[border1:border2]
         data_y = data[border1:border2]
+
+        self.cycle_index = (np.arange(len(data)) % self.cycle)[border1:border2]
 
 
         if self.set_type==0:
@@ -286,7 +288,9 @@ class Dataset_ETT_hour(Dataset):
         seq_x_mark = self.data_stamp_x[index]
         seq_y_mark = self.data_stamp_y[index]
 
-        return seq_x, seq_y, seq_x_mark, seq_y_mark
+        cycle_index = torch.tensor(self.cycle_index[index+ self.context_window])
+
+        return seq_x, seq_y, seq_x_mark, cycle_index
 
     def __len__(self):
         return len(self.data_x) 
@@ -299,7 +303,7 @@ class Dataset_ETT_hour(Dataset):
 class Dataset_Custom(Dataset):
     def __init__(self, root_path, flag='train', size=None,
                  features='S', data_path='ETTh1.csv',
-                 target='OT', scale=True, timeenc=0, freq='h', levels=168 ,rank=10,lam=20, optimze_H_from_scratch=True):
+                 target='OT', scale=True, timeenc=0, freq='h', levels=168 ,rank=10,lam=20, optimze_H_from_scratch=True, cycle=24):
         # size [seq_len, label_len, pred_len]
         # info
         if size == None:
@@ -349,6 +353,7 @@ class Dataset_Custom(Dataset):
 
         self.cos=cos
         self.sin=sin
+        self.cycle = cycle
 
 
         self.__read_data__()
@@ -399,6 +404,8 @@ class Dataset_Custom(Dataset):
             data_stamp = data_stamp.transpose(1, 0)
 
         data_x = data[border1:border2]
+
+        self.cycle_index = (np.arange(len(data)) % self.cycle)[border1:border2]
 
         data_stamp = data_stamp
 
@@ -577,7 +584,10 @@ class Dataset_Custom(Dataset):
         seq_y=self.data_y[index]
         seq_x_mark = self.data_stamp_x[index]
         seq_y_mark = self.data_stamp_y[index]
-        return seq_x, seq_y, seq_x_mark, seq_y_mark
+
+        cycle_index = torch.tensor(self.cycle_index[index+ self.context_window])
+
+        return seq_x, seq_y, seq_x_mark, cycle_index
 
     def __len__(self):
         return len(self.data_x) 
@@ -588,7 +598,7 @@ class Dataset_Custom(Dataset):
 class Dataset_PEMS(Dataset):
     def __init__(self, root_path, flag='train', size=None,
                  features='S', data_path='ETTh1.csv',
-                 target='OT', scale=True, timeenc=0, freq='h', levels=168, rank=10,lam=20, optimze_H_from_scratch=True):
+                 target='OT', scale=True, timeenc=0, freq='h', levels=168, rank=10,lam=20, optimze_H_from_scratch=True, cycle=24):
         # size [seq_len, label_len, pred_len]
         # info
 
@@ -632,6 +642,7 @@ class Dataset_PEMS(Dataset):
 
         self.cos=cos
         self.sin=sin
+        self.cycle = cycle
 
 
         self.__read_data__()
@@ -646,6 +657,8 @@ class Dataset_PEMS(Dataset):
         index=np.arange(len(data))
         index1=index%288
         index=(index-1)/288-0.5
+
+        cycle_index = (np.arange(len(data)) % self.cycle)
  
         train_ratio = 0.7
         valid_ratio = 0.1
@@ -660,6 +673,12 @@ class Dataset_PEMS(Dataset):
         test_index = index[int((train_ratio + valid_ratio) * len(index))-self.contex_window:]
         total_index = [train_index, valid_index, test_index]
         index = total_index[self.set_type]
+
+        train_cycle = cycle_index[:int(train_ratio * len(cycle_index))]
+        valid_cycle = cycle_index[int(train_ratio * len(cycle_index))-self.contex_window:int((train_ratio + valid_ratio) * len(cycle_index))]
+        test_cycle = cycle_index[int((train_ratio + valid_ratio) * len(cycle_index))-self.contex_window:]
+        total_cycle = [train_cycle, valid_cycle, test_cycle]
+        self.cycle_index = total_cycle[self.set_type]
 
         if self.scale:
             self.scaler.fit(train_data)
@@ -871,7 +890,9 @@ class Dataset_PEMS(Dataset):
         seq_x_mark = self.data_stamp_x[index]
         seq_y_mark = self.data_stamp_y[index]
 
-        return seq_x, seq_y, seq_x_mark, seq_y_mark
+        cycle_index = torch.tensor(self.cycle_index[index+ self.contex_window])
+
+        return seq_x, seq_y, seq_x_mark, cycle_index
 
     def __len__(self):
         if self.set_type == 2:  
@@ -1102,11 +1123,10 @@ def moving_average(x, w):
     return np.convolve(x, np.ones(w), 'valid') / w        
 
 
-
 class Dataset_ETT_minute(Dataset):
     def __init__(self, root_path, flag='train', size=None,
                  features='S', data_path='ETTm1.csv',
-                 target='OT', scale=True, timeenc=0, freq='t', levels=168,rank=10,lam=20, optimze_H_from_scratch=True):
+                 target='OT', scale=True, timeenc=0, freq='t', levels=168,rank=10,lam=20, optimze_H_from_scratch=True,cycle=24):
         # size [seq_len, label_len, pred_len]
         # info
         if size == None:
@@ -1135,6 +1155,8 @@ class Dataset_ETT_minute(Dataset):
         self.freq_level=levels
         self.context_window=2*levels
 
+        
+
 
         ts = 1.0/self.context_window
         t = np.arange(0,1,ts)
@@ -1153,6 +1175,8 @@ class Dataset_ETT_minute(Dataset):
 
         self.cos=cos
         self.sin=sin
+
+        self.cycle = cycle
 
         self.root_path = root_path
         self.data_path = data_path
@@ -1198,6 +1222,8 @@ class Dataset_ETT_minute(Dataset):
 
         data_x = data[border1:border2]
         data_y = data[border1:border2]
+
+        self.cycle_index = (np.arange(len(data)) % self.cycle)[border1:border2]
 
 
         if self.set_type==0:
@@ -1331,8 +1357,6 @@ class Dataset_ETT_minute(Dataset):
             else:
                 data_x=data_stamp_total[100*i:100*(i+1),:,:].permute(0,2,1)
 
-            print(data_x.size())
-
             norm=data_x.size()[-1]
             frequency=torch.fft.rfft(data_x,axis=-1)
             X_oneside=frequency/(norm)*2
@@ -1372,7 +1396,9 @@ class Dataset_ETT_minute(Dataset):
         seq_x_mark = self.data_stamp_x[index]
         seq_y_mark = self.data_stamp_y[index]
 
-        return seq_x, seq_y, seq_x_mark, seq_y_mark
+        cycle_index = torch.tensor(self.cycle_index[index+ self.context_window])
+
+        return seq_x, seq_y, seq_x_mark, cycle_index
 
     def __len__(self):
         return len(self.data_x) 
