@@ -38,11 +38,10 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         return model_optim
 
     def _select_criterion(self):
-        # if self.args.data == 'PEMS' or self.args.data == 'ETTh1' or self.args.data_path == 'electricity.csv':
-        #     criterion = nn.L1Loss()
-        # else:
-        #     criterion = nn.MSELoss()
-        criterion = nn.L1Loss()
+        if self.args.criterion == 'MAE':
+            criterion = nn.L1Loss()
+        else:
+            criterion = nn.MSELoss()
         return criterion
 
     def vali(self, vali_data, vali_loader, criterion):
@@ -55,12 +54,12 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
                 if self.args.embed == 'timestamp':
                     batch_x_mark = batch_x_mark.long().to(self.device)
-                    batch_y_mark = batch_y_mark.long().to(self.device)
+                    # batch_y_mark = batch_y_mark.long().to(self.device)
                 else:
                     batch_x_mark = batch_x_mark.float().to(self.device)
-                    batch_y_mark = batch_y_mark.float().to(self.device)
+                    # batch_y_mark = batch_y_mark.float().to(self.device)
 
-
+                batch_y_mark = batch_y_mark.int().to(self.device)
 
                 # if 'PEMS' == self.args.data or 'Solar' == self.args.data:
                 #     batch_x_mark = None
@@ -128,6 +127,8 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         if self.args.use_amp:
             scaler = torch.cuda.amp.GradScaler()
 
+        
+
 
 
         for epoch in range(self.args.train_epochs):
@@ -146,10 +147,13 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
                 if self.args.embed == 'timestamp':
                     batch_x_mark = batch_x_mark.long().to(self.device)
-                    batch_y_mark = batch_y_mark.long().to(self.device)
+                    # batch_y_mark = batch_y_mark.long().to(self.device)
                 else:
                     batch_x_mark = batch_x_mark.float().to(self.device)
-                    batch_y_mark = batch_y_mark.float().to(self.device)
+                    # batch_y_mark = batch_y_mark.float().to(self.device)
+
+                batch_y_mark = batch_y_mark.int().to(self.device)
+                
 
 
                 # if 'PEMS' == self.args.data or 'Solar' == self.args.data:
@@ -212,7 +216,6 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                     adjust_learning_rate(model_optim, scheduler, epoch + 1, self.args, printout=False)
                     scheduler.step()
 
-
                     
             print("Epoch: {} cost time: {}".format(epoch + 1, time.time() - epoch_time))
             train_loss = np.average(train_loss)
@@ -262,11 +265,12 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
                 if self.args.embed == 'timestamp':
                     batch_x_mark = batch_x_mark.long().to(self.device)
-                    batch_y_mark = batch_y_mark.long().to(self.device)
+                    # batch_y_mark = batch_y_mark.long().to(self.device)
                 else:
                     batch_x_mark = batch_x_mark.float().to(self.device)
-                    batch_y_mark = batch_y_mark.float().to(self.device)
+                    # batch_y_mark = batch_y_mark.float().to(self.device)
 
+                batch_y_mark = batch_y_mark.int().to(self.device)
                 # if 'PEMS' == self.args.data or 'Solar' == self.args.data:
                 #     batch_x_mark = None
                 #     batch_y_mark = None
@@ -291,6 +295,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
                     else:
                         outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+
 
 
                 f_dim = -1 if self.args.features == 'MS' else 0
@@ -339,17 +344,6 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         mae, mse, rmse, mape, mspe = metric(preds, trues)
         print('mse:{}, mae:{}'.format(mse, mae))
         
-        # print('rmse:{}, mape:{}, mspe:{}'.format(rmse, mape, mspe))
-
-        # a,b,c=preds.shape
-        # preds=test_data.inverse_transform(preds.reshape(-1,preds.shape[-1]))
-        # trues=test_data.inverse_transform(trues.reshape(-1,trues.shape[-1]))
-        # preds=preds.reshape(a,b,c)
-        # trues=trues.reshape(a,b,c)
-        # mae, mse, rmse, mape, mspe = metric(preds, trues)
-        # print('mse:{}, mae:{}'.format(mse, mae))
-        # print('rmse:{}, mape:{}, mspe:{}'.format(rmse, mape, mspe))
-
         f = open("result_long_term_forecast.txt", 'a')
         f.write(setting + "  \n")
         f.write('mse:{}, mae:{}'.format(mse, mae))
