@@ -113,6 +113,9 @@ parser.add_argument('--partial_start_index', type=int, default=0, help='the star
                                                                         'you can select [partial_start_index, min(enc_in + partial_start_index, N)]')
 #Standarization
 parser.add_argument('--std', type=int, default=0, help='std')
+#Cyclenet
+parser.add_argument('--cycle', type=int, default=24, help='cycle length')
+parser.add_argument('--model_type', type=str, default='mlp', help='model type, options: [linear, mlp]')
 #PatchTST
 parser.add_argument('--dropout', type=float, default=0.15, help='dropout')
 parser.add_argument('--patch_num', type=int, default=12, help='patch number, this must be divisible by input sequence length')
