@@ -64,6 +64,63 @@ do
 done
 
 
+seq_len=96
+model_name=CycleNet 
+for pred_len in 96 192 336 720
+do
+    python -u run.py \
+    --task_name long_term_forecast \
+    --is_training 1\
+    --root_path ./dataset/ \
+    --data_path ETTh1.csv \
+    --model_id  ETTh1\
+    --model  $model_name \
+    --data ETTh1 \
+    --features M \
+    --seq_len $seq_len\
+    --pred_len $pred_len \
+    --enc_in 7 \
+    --dec_in 7 \
+    --c_out 7\
+    --des 'Exp' \
+    --cycle 24 \
+    --d_model 512\
+    --train_epochs 60\
+    --patience 3\
+    --lradj 'TST'\
+    --itr 1 --batch_size 128 --learning_rate 0.0005 >logs/LongForecasting_new/ETTh1_Mlow_$model_name'_96_'$pred_len.log  
+done
+
+
+
+
+
+seq_len=96
+model_name=NLinear
+for pred_len in 96 192 336 720
+do
+    python -u run.py \
+    --task_name long_term_forecast \
+    --is_training 1\
+    --root_path ./dataset/ \
+    --data_path ETTh1.csv \
+    --model_id  ETTh1\
+    --model  $model_name \
+    --data ETTh1 \
+    --features M \
+    --seq_len $seq_len\
+    --pred_len $pred_len \
+    --enc_in 7 \
+    --dec_in 7 \
+    --c_out 7\
+    --d_model2 256\
+    --d_ff2 256\
+    --des 'Exp' \
+    --train_epochs 50\
+    --patience 10\
+    --lradj 'ST'\
+    --itr 1 --batch_size 128 --learning_rate 0.0001 >logs/LongForecasting_new/ETTh1_Mlow_$model_name'_96_'$pred_len.log  
+done
 
 
 
