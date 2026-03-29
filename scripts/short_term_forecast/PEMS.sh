@@ -219,3 +219,57 @@ do
     --patience 20\
     --itr 1 --batch_size 64 --learning_rate 0.0004 >logs/ShortForecasting_new/PEMS04_mlow_$model_name'_10_336_96_'$pred_len.log  
 done
+
+seq_len=96
+model_name=CycleNet
+
+for pred_len in 12 24 48 96
+do
+    python -u run.py \
+    --task_name long_term_forecast \
+    --is_training 1\
+    --root_path ./dataset/PEMS/ \
+    --data_path PEMS08.npz \
+    --model_id  PEMS08\
+    --model  $model_name \
+    --data PEMS \
+    --features M \
+    --seq_len $seq_len\
+    --pred_len $pred_len \
+    --enc_in 170 \
+    --dec_in 170 \
+    --c_out 170\
+    --des 'Exp' \
+    --d_model 512\
+    --cycle 168\
+    --train_epochs 100\
+    --patience 10\
+    --itr 1 --batch_size 64 --learning_rate 0.0005 >logs/ShortForecasting_new/PEMS08_mlow_$model_name'_10_336_96_'$pred_len.log  
+done
+
+
+seq_len=96
+model_name=NLinear
+
+for pred_len in 12 24 48 96
+do
+    python -u run.py \
+    --task_name long_term_forecast \
+    --is_training 1\
+    --root_path ./dataset/PEMS/ \
+    --data_path PEMS08.npz \
+    --model_id  PEMS08\
+    --model  $model_name \
+    --data PEMS \
+    --features M \
+    --seq_len $seq_len\
+    --pred_len $pred_len \
+    --enc_in 170 \
+    --dec_in 170 \
+    --c_out 170\
+    --des 'Exp' \
+    --train_epochs 100\
+    --patience 10\
+    --itr 1 --batch_size 64 --learning_rate 0.0004 >logs/ShortForecasting_new/PEMS08_mlow_$model_name'_10_336_96_'$pred_len.log  
+done
+
