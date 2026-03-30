@@ -113,8 +113,6 @@ do
     --enc_in 7 \
     --dec_in 7 \
     --c_out 7\
-    --d_model2 256\
-    --d_ff2 256\
     --des 'Exp' \
     --train_epochs 50\
     --patience 10\
