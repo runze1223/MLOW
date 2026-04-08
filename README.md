@@ -50,9 +50,12 @@ sh ./scripts/short_term_forecast/PEMS.sh
 ## The Experiment Results.
 ![paper preview](./fig/Table1.png)
 ![paper preview](./fig/Table2.png)
+![paper preview](./fig/New_experiments.png)
 
 ## ❗ Common Issues
 If you run into any issues, please let us know. One common issue is memory usage. Our decomposition is precomputed in the dataloader, which is more efficient. However, if your GPU memory cannot handle it, you can use our pretrained low-rank components and move the decomposition proccess to the model initialization stage.
+
+We acknowledge Zhijiang Wang’s suggestion by adding experimental results for T=96, K=48, V=10 on iTransformer. You can use the folder ‘A simpler version with bounded time-frequency’ to reproduce these results.
 
 ## 📚 Citation
 
