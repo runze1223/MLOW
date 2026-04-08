@@ -28,7 +28,7 @@ do
     --dec_in 862 \
     --c_out 862\
     --des 'Exp' \
-    --e_layer 5\
+    --e_layer 3\
     --train_epochs 150\
     --patience 10\
     --lradj 'TST'\
@@ -55,7 +55,7 @@ do
     --dec_in 862 \
     --c_out 862\
     --des 'Exp' \
-    --e_layer 5\
+    --e_layer 3\
     --train_epochs 150\
     --patience 10\
     --lradj 'TST'\
