@@ -10,7 +10,7 @@ We'll keep updating this repository with new features and news. Please feel free
 
 ### 📰 News: We have added two more models, NLinear and CycleNet, to allow you to experiment with.
 
-### 📰 News: We have provided a simplified code version with bounded time-frequency for you to use in folder "A simpler version with bounded time-frequency", where K must be equal to T/2. This operation is conducted outside the dataloader to make it easier for you to transfer our code to your repository.
+### 📰 News: We have provided a simplified code version with bounded time-frequency for you to use in folder "A simpler version with bounded time-frequency", where K must be equal to T/2. The inference is conducted outside the dataloader to make it easier for you to transfer our code to your repository.
 
 ## 🧠 Inference
 
