@@ -4,7 +4,7 @@
 
 This is a PyTorch implementation of the paper: [MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting]().  MLOW is an interpretable Fourier-based decomposition method that disentangles multiple effects of certain time series data using learned low-rank components, providing an interpretable decomposition in the temporal domain rather than operating in the complex frequency domain.
 
-If you find this project helpful, please don't forget to give it a ⭐ Star. Thank you very much! 
+If you find this project helpful, please don't forget to give it a ⭐ Star. Your support is very important to us. Thank you very much! 
 
 We'll keep updating this repository with new features and news. Please feel free to contact us if you have any questions or find any bugs. 
 
@@ -53,7 +53,7 @@ sh ./scripts/short_term_forecast/PEMS.sh
 ![paper preview](./fig/New_experiments.png)
 
 ## ❗ Common Issues
-If you run into any issues, please let us know. One common issue is memory usage. Our decomposition is precomputed in the dataloader, which is more efficient. However, if your GPU memory cannot handle it, you can use our pretrained low-rank components and move the decomposition proccess to the model initialization stage.
+If you run into any issues, please let us know. One common issue is memory usage. Our decomposition is precomputed in the dataloader, which is more efficient. However, if your GPU memory cannot handle it, you can use our pretrained low-rank components and move the inference outside the dataloader.
 
 We acknowledge Zhijiang Wang’s suggestion by adding experimental results for T=96, K=48, V=10 on iTransformer. You can use the folder ‘A simpler version with bounded time-frequency’ to reproduce these results.
 
@@ -63,10 +63,10 @@ If you find MLOW useful for your research or applications, please cite our paper
 
 ```bibtex
   @article{yang2026mlow,
-      title={MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting}, 
-      author={Runze Yang and Longbing Cao and Xiao-Ming Wu and Xin You and Kun Fang and Jianxun Li and Jie Yang},
-      journal={arXiv preprint arXiv:2603.18432},
-      year={2026},
+    title={MLOW: Interpretable Low-Rank Frequency Magnitude Decomposition of Multiple Effects for Time Series Forecasting},
+    author={Yang, Runze and Cao, Longbing and Wu, Xiaoming and You, Xin and Fang, Kun and Li, Jianxun and Yang, Jie},
+    journal={arXiv preprint arXiv:2603.18432},
+    year={2026}
   }
 ```
 If you have any questions or suggestions, feel free to contact:
