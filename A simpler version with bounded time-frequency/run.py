@@ -138,7 +138,7 @@ parser.add_argument('--criterion', type=str, default='MAE',
 parser.add_argument('--rank', type=int, default=10, help='components')
 parser.add_argument('--frequency_level', type=int, default=48, help='frequency_level')
 parser.add_argument('--lamb', type=int, default=20, help='regularization_factor')
-parser.add_argument('--optimze_H_from_scratch', type=bool, default=True, help='whether to optimze H from scratch, otherwise we provide our pretrained H')
+parser.add_argument('--optimze_H_from_scratch', type=bool, default=False, help='whether to optimze H from scratch, otherwise we provide our pretrained H')
 
 args = parser.parse_args()
 args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
